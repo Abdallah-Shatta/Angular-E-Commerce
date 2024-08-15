@@ -1,0 +1,63 @@
+<!-- main slider -->
+<section class="mt-5">
+    <h1 class="text-center mb-3" style="color: var(--main-color); font-family: 'Pacifico', cursive;">All Fresh As You Wish</h1>
+    <div class="row g-2">
+        <div class="col-md-8">
+            <owl-carousel-o [options]="mainSliderOptions">
+                <ng-template carouselSlide><img src="./assets/images/main-slider-3.jpeg" class="w-100 rounded" height="500px"></ng-template>  
+                <ng-template carouselSlide><img src="./assets/images/main-slider-1.jpeg" class="w-100 rounded" height="500px"></ng-template>  
+                <ng-template carouselSlide><img src="./assets/images/main-slider-2.jpeg" class="w-100 rounded" height="500px"></ng-template>  
+            </owl-carousel-o>
+        </div>
+        <div class="col-md-4">
+            <img src="./assets/images/slide-1.jpeg" class="w-100 mb-2 rounded" height="245px">
+            <img src="./assets/images/slide-2.jpeg" class="w-100 mb-2 rounded" height="245px">
+        </div>
+    </div>
+</section>
+
+<!-- categories slider -->
+<section class="my-3">
+    <h2 class="my-3">Our Categories</h2>
+    <owl-carousel-o [options]="categoriesSliderOptions">
+        @for (item of allCategories; track $index) {
+            <ng-container>
+                <ng-template carouselSlide>
+                    <div class="mx-2 text-center cursor-pointer">
+                        <img [src]="item.image" [alt]="item.name" height="280px" class="w-100 rounded product">
+                        <h4 class="h5 my-2" style="color: var(--main-color)">{{ item.name }}</h4>
+                    </div>
+                </ng-template>
+            </ng-container>
+        }
+    </owl-carousel-o>
+</section>
+
+<!-- products -->
+<section>
+    <div>
+        <h2 class="my-3 d-inline-block">Our Popular Products</h2>
+        <input type="search" placeholder="Search for a product" class="form-control w-50 mx-5 d-inline-block" [(ngModel)]="searchedProduct">
+    </div>
+    <div class="row g-4 mb-3">
+        @for (item of allProducts | search : searchedProduct; track $index) {
+            <div class="col-md-2">
+                <div class="product p-2">
+                    <div class="cursor-pointer" [routerLink]="['/details', item._id]">
+                        <img [src]="item.imageCover" [alt]="item.title" class="w-100 mb-1 rounded">
+                        <h3 class="h6">{{ item.category.name }}</h3>
+                        <h4 class="h6">{{ item.title | trimtext : 2 }}</h4>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>{{ item.price | currency:"EGP" }}</span>
+                            <div>
+                                <i class="fas fa-star rating-color"></i>
+                                <span class="text-muted">{{ item.ratingsAverage }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-main w-100" (click)="addProductToCart(item._id)">Add To Cart</button>
+                </div>
+            </div>
+            }
+    </div>
+</section>

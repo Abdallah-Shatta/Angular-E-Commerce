@@ -1,0 +1,17 @@
+<section class="bg-main-light rounded-3 my-4 mx-auto shadow w-50 p-4">
+    <form [formGroup]="chechoutGroup" (ngSubmit)="handleForm()">
+        <div>
+            <label for="details">Details</label>
+            <textarea id="details" class="form-control" formControlName="details"></textarea>
+        </div>
+        <div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" class="form-control" formControlName="phone"/>
+        </div>
+        <div>
+            <label for="city">City</label>
+            <input type="text" id="city" class="form-control" formControlName="city"/>
+        </div>
+        <button class="btn-main mt-3">Confirm</button>
+    </form>
+</section>

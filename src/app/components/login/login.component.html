@@ -1,0 +1,42 @@
+<section class="bg-main-light p-4 rounded my-3 w-75 mx-auto">
+    <h1>LogIn Now</h1>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <div class="mb-2">
+            <label for="email">Email :</label>
+            <input #email class="form-control" type="email" id="email" formControlName="email">
+            @if((loginForm.get("email")?.touched || email.value.length > 0) && loginForm.get("email")?.errors){
+                @if(loginForm.get("email")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Email Field is required</p>
+                }@else if(loginForm.get("email")?.getError("email")){
+                    <p class="alert alert-danger mt-1">Invalid Email</p>
+                }
+            }
+        </div>
+        
+        <div class="mb-2">
+            <label for="password">Password :</label>
+            <input #password class="form-control" type="password" id="password" formControlName="password">
+            @if((loginForm.get("password")?.touched || password.value.length > 0) && loginForm.get("password")?.errors){
+                @if(loginForm.get("password")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Password Field is required</p>
+                }@else if(loginForm.get("password")?.getError("pattern")){
+                    <p class="alert alert-danger mt-1">Password must start with upperCase then from 6 to 10 chars</p>
+                }
+            }
+        </div>
+        
+        <button class="btn-main ms-auto d-block">
+            @if(isLoading){
+                <i class="fas fa-spinner fa-spin"></i>
+            }
+            LogIn
+        </button>
+
+        @if(errMsg){
+            <p class="alert alert-danger mt-2">{{errMsg}}</p>
+        }
+    </form>
+</section>
+

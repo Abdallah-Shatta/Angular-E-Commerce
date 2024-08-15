@@ -1,0 +1,79 @@
+<section class="bg-main-light p-4 rounded my-3 w-75 mx-auto">
+    <h1>Register Now</h1>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <div class="mb-2">
+            <label for="name">Name :</label>
+            <input #name class="form-control" type="text" id="name" formControlName="name">
+            @if((registerForm.get("name")?.touched || name.value.length > 0) && registerForm.get("name")?.errors){
+                @if(registerForm.get("name")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Name Field is required</p>
+                }@else if(registerForm.get("name")?.getError("minlength")){
+                    <p class="alert alert-danger mt-1">Name must be more than 3 chars</p>
+                }@else if(registerForm.get("name")?.getError("maxlength")){
+                    <p class="alert alert-danger mt-1">Name must be less than 20 chars</p>
+                }
+            }
+        </div>
+        
+        <div class="mb-2">
+            <label for="email">Email :</label>
+            <input #email class="form-control" type="email" id="email" formControlName="email">
+            @if((registerForm.get("email")?.touched || email.value.length > 0) && registerForm.get("email")?.errors){
+                @if(registerForm.get("email")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Email Field is required</p>
+                }@else if(registerForm.get("email")?.getError("email")){
+                    <p class="alert alert-danger mt-1">Invalid Email</p>
+                }
+            }
+        </div>
+        
+        <div class="mb-2">
+            <label for="password">Password :</label>
+            <input #password class="form-control" type="password" id="password" formControlName="password">
+            @if((registerForm.get("password")?.touched || password.value.length > 0) && registerForm.get("password")?.errors){
+                @if(registerForm.get("password")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Password Field is required</p>
+                }@else if(registerForm.get("password")?.getError("pattern")){
+                    <p class="alert alert-danger mt-1">Password must start with upperCase then from 6 to 10 chars</p>
+                }
+            }
+        </div>
+        
+        <div class="mb-2">
+            <label for="rePassword">Confirm Password :</label>
+            <input #rePassword class="form-control" type="password" id="rePassword" formControlName="rePassword">
+            @if((registerForm.get("rePassword")?.touched || rePassword.value.length > 0) && registerForm.get("rePassword")?.errors){
+                @if(registerForm.get("rePassword")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Password confirm Field is required</p>
+                }@else if(registerForm.get("rePassword")?.getError("mismatch")){
+                    <p class="alert alert-danger mt-1">Password confirmation is incorrect</p>
+                }
+            }
+        </div>
+        
+        <div class="mb-2">
+            <label for="phone">Phone :</label>
+            <input #phone class="form-control" type="tel" id="phone" formControlName="phone">
+            @if((registerForm.get("phone")?.touched || phone.value.length > 0) && registerForm.get("phone")?.errors){
+                @if(registerForm.get("phone")?.getError("required")){
+                    <p class="alert alert-danger mt-1">Phone Field is required</p>
+                }@else if(registerForm.get("phone")?.getError("pattern")){
+                    <p class="alert alert-danger mt-1">phone accepts only egypt phone numbers</p>
+                }
+            }
+        </div>
+        
+        <button class="btn-main ms-auto d-block">
+            @if(isLoading){
+                <i class="fas fa-spinner fa-spin"></i>
+            }
+            Register
+        </button>
+
+        @if(errMsg){
+            <p class="alert alert-danger mt-2">{{errMsg}}</p>
+        }
+    </form>
+</section>
